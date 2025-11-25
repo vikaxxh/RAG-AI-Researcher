@@ -120,3 +120,19 @@ cache/
 
 # Build artifacts
 /site/
+
+# Vector DB / Semantic cache
+cache_db/
+semantic_cache/
+vector_cache/
+db_cache/
+*.lance
+*.arrow
+*.snappy
+*.idx
+*.npy
+*.pkl
+*.parquet
+chroma/
+chroma_db/
+chromadb/
