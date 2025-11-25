@@ -9,6 +9,7 @@ dependencies = [
     "colorlog>=6.10.1",
     "faiss-cpu>=1.13.0",
     "fastapi>=0.121.3",
+    "lancedb>=0.25.3",
     "langchain>=1.0.7",
     "langchain-community>=0.4.1",
     "langchain-core>=1.0.5",

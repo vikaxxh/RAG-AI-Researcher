@@ -1,6 +1,7 @@
 from src.research_assistant.core.state_manager import ResearchState
 from src.research_assistant.core.logger import logger
 from src.research_assistant.utils.llm_client import get_llm_client_rag
+from src.research_assistant.cache.semantic_cache import search_cache, save_to_cache
 from langchain_classic.chains import (
     create_history_aware_retriever,
     create_retrieval_chain,
@@ -26,6 +27,13 @@ async def llm_synthesizer_node(state: ResearchState) -> ResearchState:
     if not state["query"]:
         logger.warning("LLM Synthesizer: Query is empty or None.")
         state["final_answer"] = "No query provided."
+        state["rag_context"] = []
+        return state
+    
+    cached = search_cache(state["query"])
+    if cached:
+        logger.info("CACHE HIT: Returning cached answer")
+        state["final_answer"] = cached
         state["rag_context"] = []
         return state
 
@@ -157,6 +165,11 @@ async def llm_synthesizer_node(state: ResearchState) -> ResearchState:
 
         state["final_answer"] = final_answer
         state["rag_context"] = rag_context
+
+
+        save_to_cache(state["query"], final_answer)
+        logger.info("CACHE SAVE: Stored answer in cache")
+
         return state
 
     except Exception as e:
