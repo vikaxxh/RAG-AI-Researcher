@@ -1,16 +1,26 @@
-CRITIC_PROMPT = """You are a hallucination detector. Check if this AI answer contains any made-up information.
+CRITIC_PROMPT = """You are a hallucination checker.
 
-CONTEXT (verified facts):
+Your job is to evaluate whether the ANSWER is reasonably supported by the CONTEXT.
+
+CONTEXT (retrieved knowledge):
 {context}
 
-ANSWER (check this):
+ANSWER:
 {answer}
 
-REPLAN if you detect:
-- Facts, numbers, or names not in the context
-- Claims that go beyond what the context states
-- Invented details or assumptions presented as facts
+ALLOW:
+- Paraphrasing, summarization, general explanations
+- Using common world knowledge
+- Logical inferences grounded in context
 
-ACCEPT if the answer is mostly consistent with context and no major hallucination found.
+REPLAN ONLY IF:
+- The answer introduces specific facts, numbers, dates, names, formulas, or claims
+  that are NOT supported anywhere in the context.
+- The answer contradicts the context.
+- The answer invents details that appear factual.
 
-ONE word answer: ACCEPT or REPLAN"""
+If the answer is mostly consistent with the context and contains no invented facts, respond: ACCEPT
+
+Otherwise respond: REPLAN
+
+Respond with ONE WORD only: ACCEPT or REPLAN"""

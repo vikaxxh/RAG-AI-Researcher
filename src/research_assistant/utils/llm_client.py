@@ -39,7 +39,7 @@ def get_critic_llm_client():
 
     try:
         llm = ChatOpenAI(model="gpt-4o-mini", 
-                temperature=0, 
+                temperature = 0, 
                 api_key = SecretStr(os.getenv("GPT_API_KEY") or "")
                 )
         
