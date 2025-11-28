@@ -16,6 +16,7 @@ async def critic_node(state: ResearchState) -> ResearchState:
     
         replan_count = state.get("replan_count", 0)
         if replan_count >= 1:
+            logger.info("---force Accept---")
             state["critic_decision"] = "ACCEPT"
             return state
 

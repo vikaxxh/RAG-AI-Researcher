@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from langsmith import traceable  # type: ignore
 import time
 from src.research_assistant.core.logger import logger
+import re
 
 
 class ArxivAgent:
@@ -12,7 +13,23 @@ class ArxivAgent:
     def __init__(self):
         self.client = arxiv.Client()
         self._executor = ThreadPoolExecutor(max_workers=4)
-        self.max_retries = 5  # retry attempts for HTTP 429
+        self.max_retries = 5
+
+
+    def clean_for_arxiv(self, user_query: str) -> str:
+        q = user_query.lower()
+        q = re.sub(r"[^\w\s]", "", q)
+
+        stopwords = {"what", "is", "are", "the", "explain", "definition", "of"}
+        tokens = [t for t in q.split() if t not in stopwords]
+
+        keywords = " ".join(tokens).strip()
+
+        if not keywords:
+            keywords = user_query
+
+        return f'(all:"{keywords}") AND (cat:cs.AI OR cat:cs.LG OR cat:cs.CL)'
+
 
     @traceable(
         name="Arxiv_agent",
@@ -20,19 +37,19 @@ class ArxivAgent:
     )
     async def search_papers(self, query: str, max_results: int = 5) -> List[Dict[str, Any]]:
 
-        def _search():
-            """Blocking function executed in thread executor."""
+        def _search() -> List[Dict[str,Any]]:
+            cleaned_query = self.clean_for_arxiv(query)
+            logger.info(f"🔍 Final arXiv Query: {cleaned_query}")
+
             for attempt in range(1, self.max_retries + 1):
                 try:
-                    logger.info(f"🔍 arXiv search attempt {attempt}: {query}")
-
                     search = arxiv.Search(
-                        query=query,
+                        query=cleaned_query,
                         max_results=max_results,
                         sort_by=arxiv.SortCriterion.Relevance,
                     )
 
-                    papers: List[Dict[str, Any]] = []
+                    papers = []
                     for idx, paper in enumerate(self.client.results(search)):
                         papers.append({
                             "id": idx,
@@ -44,26 +61,19 @@ class ArxivAgent:
                             "url": paper.entry_id
                         })
 
-                    return papers  # SUCCESS → return results
+                    return papers
 
                 except Exception as e:
-                    error = str(e)
-
-                    # 429 → Too Many Requests
-                    if "429" in error or "Too Many Requests" in error:
-                        wait = 2 ** attempt  # exponential backoff
-                        logger.warning(f"⚠️ arXiv rate limit hit (429). Waiting {wait}s...")
+                    if "429" in str(e):
+                        wait = 2 ** attempt
+                        logger.warning(f"⚠️ arXiv rate-limit. Retrying in {wait}s...")
                         time.sleep(wait)
-                        continue  # retry
-
-                    # Other types of errors → don't retry
-                    logger.error(f"❌ arXiv error: {e}")
+                        continue
+                    
                     raise e
 
-            logger.error("❌ arXiv retry limit reached. Returning empty list.")
             return []
 
-        # Run inside executor
         try:
             loop = asyncio.get_event_loop()
             return await loop.run_in_executor(self._executor, _search)
