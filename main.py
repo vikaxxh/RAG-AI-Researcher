@@ -5,12 +5,11 @@ from src.research_assistant.utils.cached_models import get_cross_encoder_model,g
 import uvicorn
 from dotenv import load_dotenv
 from pathlib import Path
-from guardrails import Guard
-from guardrails.hub import ProfanityFree, ToxicLanguage
 from contextlib import asynccontextmanager
 from src.research_assistant.guardrails.guardrails_validator import Guardrails_check
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
+from typing import Any
 
 load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
 
@@ -18,13 +17,12 @@ load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
 async def lifespan(app: FastAPI):
     print("🔥 Startup: Loading models in parallel...")
     
-    # ✅ Load all 3 things at the SAME TIME (Parallelization)
     loop = asyncio.get_event_loop()
     with ThreadPoolExecutor(max_workers=3) as executor:
-        tasks = [
+        tasks:Any = [
             loop.run_in_executor(executor, get_embedding_model),
             loop.run_in_executor(executor, get_cross_encoder_model),
-            loop.run_in_executor(executor, Guardrails_check)  # Singleton ensures only one instance
+            loop.run_in_executor(executor, Guardrails_check)  
         ]
         await asyncio.gather(*tasks)
     
