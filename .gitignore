@@ -136,3 +136,20 @@ db_cache/
 chroma/
 chroma_db/
 chromadb/
+
+# Model cache - embedding models
+model_cache/
+model_cache/**
+
+# Alternative patterns if needed
+**/model_cache/
+embedding/
+
+# Hugging Face cache
+**/.cache/huggingface/
+
+# Large model files
+*.safetensors
+*.bin
+*.gguf
+*.pth
