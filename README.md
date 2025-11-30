@@ -2,8 +2,6 @@
 
 ⭐ Star us on GitHub — it motivates me to keep improving! 🙏😊
 
-##   
-
 ## 🚀 About
 
 **Agentic RAG Research Assistant** is an advanced AI-powered research tool built with LangGraph that autonomously orchestrates multi-step research workflows. It combines the power of multiple language models and specialized search agents to gather, analyze, and synthesize information from academic papers, web sources, and knowledge bases.
@@ -22,13 +20,9 @@ Built on **LangGraph's stateful workflow paradigm**, the system ensures:
 -   ✅ **Modularity**: Each agent operates independently with clear interfaces
 -   ✅ **Observability**: Full tracing with LangSmith integration
 -   ✅ **Reliability**: Type-safe data models with Pydantic validation
--   ✅ **Scalability**: Extensible architecture for adding new tools and capabilities
-
-##   
+-   ✅ **Scalability**: Extensible architecture for adding new tools and capabilities 
 
 ## 🌟 Key Features
-
-  
 
 ### Intelligence & Reasoning
 
@@ -58,19 +52,12 @@ Built on **LangGraph's stateful workflow paradigm**, the system ensures:
 -   **🧪 Comprehensive Tests**: Extensive test coverage for reliability
 -   **📝 Type Hints**: Full typing support for better IDE integration
 
-###   
-
-### 🏗️ Architecture
-
   
+## 🏗️ Architecture
 
-![Architecture](https://file%2B.vscode-resource.vscode-cdn.net/c%3A/Users/ARUN%20NIVAAS/.vscode/extensions/syncfusioninc.document-viewer-vscode-extensions-4.0.2/temp-images/img_7/architecture.png)
+![Architecture](https://github.com/arun-nivaas/LLM-002-Agentic-Research-Assistant/blob/main/src/research_assistant/assets/architecture.png?raw=true)
 
-###   
-
-### Key Components
-
-  
+## Key Components
 
 1. **Guardrails**: Validates input queries for safety, relevance, and appropriate scope before processing
 
