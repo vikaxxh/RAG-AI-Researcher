@@ -3,6 +3,34 @@ import os
 from langchain_openai import ChatOpenAI
 from pydantic import SecretStr
 from langsmith import traceable #type: ignore
+from langchain_ollama.llms import OllamaLLM
+from src.research_assistant.core.logger import logger
+
+@traceable(name="Reasoning_LLM_init", metadata={"method_type": "local_ollama"})
+def get_common_llm_client():
+   
+    model_name = "phi3:mini"  
+    
+    try:
+        llm = OllamaLLM(
+            model=model_name,
+            temperature=0.2,
+            format="json"
+        )
+        
+        logger.info(f"🔌 Testing connection to Ollama ({model_name})...")
+        logger.info("✅ Planning LLM (Ollama) connected successfully.")
+        return llm
+
+    except Exception as e:
+        logger.error("❌ Failed to connect to Ollama. Is 'ollama serve' running?")
+        logger.error(f"Error details: {e}")
+        raise ValueError(f"Reasoning LLM Connection Failed: {e}")
+
+
+
+
+
 
 
 @traceable(
@@ -31,6 +59,11 @@ def get_llm_client_rag():
 
 
 
+
+
+
+
+
 @traceable(
     name="Critic_LLM_execution",
     metadata={"method_type": "Critic_LLM", "version": "1.0"}
@@ -40,10 +73,12 @@ def get_critic_llm_client():
     try:
         llm = ChatOpenAI(model="gpt-4o-mini", 
                 temperature = 0, 
-                api_key = SecretStr(os.getenv("GPT_API_KEY") or "")
+                api_key = SecretStr(os.getenv("GPT_API_KEY") or ""),
                 )
         
     except Exception as e:
         raise ValueError(f"Critic LLM Failed : {e}")
     
     return llm
+
+

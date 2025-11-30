@@ -1,4 +1,4 @@
-from src.research_assistant.prompt_library.prompts import CRITIC_PROMPT
+from src.research_assistant.prompt_library.critic_prompt import CRITIC_PROMPT
 from typing import List,Dict,Any
 from langchain_openai import ChatOpenAI
 from src.research_assistant.core.logger import logger

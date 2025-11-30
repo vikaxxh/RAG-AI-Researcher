@@ -47,4 +47,4 @@ class TavilyAgent:
             loop = asyncio.get_event_loop()
             return await loop.run_in_executor(self._executor, _search)
         except Exception as e:
-            raise ValueError(f"Error creating arXiv search: {e}")
+            raise ValueError(f"Error creating tavily search: {e}")

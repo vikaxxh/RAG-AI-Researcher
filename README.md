@@ -1,0 +1,85 @@
+![Agentic RAG Research Assistant](https://file%2B.vscode-resource.vscode-cdn.net/c%3A/Users/ARUN%20NIVAAS/.vscode/extensions/syncfusioninc.document-viewer-vscode-extensions-4.0.2/temp-images/img_7/banner.png)[![Python](https://img.shields.io/badge/Python-3.11%2C%203.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)[![LangChain](https://img.shields.io/badge/LangChain-0.3+-1C3C3C?logo=langchain&logoColor=white)](https://www.langchain.com/)[![LangGraph](https://img.shields.io/badge/LangGraph-Agentic%20AI-FF4785)](https://langchain-ai.github.io/langgraph/)[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o%20Mini-412991?logo=openai&logoColor=white)](https://openai.com/)[![Google AI](https://img.shields.io/badge/Google%20AI-Gemini%202.5%20Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)[![UV](https://img.shields.io/badge/UV-Package%20Manager-DE5FE9)](https://github.com/astral-sh/uv)[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+⭐ Star us on GitHub — it motivates me to keep improving! 🙏😊
+
+##   
+
+## 🚀 About
+
+**Agentic RAG Research Assistant** is an advanced AI-powered research tool built with LangGraph that autonomously orchestrates multi-step research workflows. It combines the power of multiple language models and specialized search agents to gather, analyze, and synthesize information from academic papers, web sources, and knowledge bases.
+
+The system employs a **multi-agent architecture** with distinct responsibilities:
+
+-   **🛡️ Guardrails**: Input validation and safety checks
+-   **🧠 Reasoning Engine**: Query understanding and task decomposition (GPT-4o Mini)
+-   **📋 Planning Engine**: Sequential execution planning (GPT-4o Mini)
+-   **🔍 Specialized Agents**: Domain-specific search (arXiv, Tavily, Wikipedia)
+-   **✨ Synthesis Engine**: Context-aware aggregation (Gemini 2.5 Flash)
+-   **🔎 Critic Agent**: Quality assurance and validation
+
+Built on **LangGraph's stateful workflow paradigm**, the system ensures:
+
+-   ✅ **Modularity**: Each agent operates independently with clear interfaces
+-   ✅ **Observability**: Full tracing with LangSmith integration
+-   ✅ **Reliability**: Type-safe data models with Pydantic validation
+-   ✅ **Scalability**: Extensible architecture for adding new tools and capabilities
+
+##   
+
+## 🌟 Key Features
+
+  
+
+### Intelligence & Reasoning
+
+-   **🧠 Multi-Model Architecture**: Leverages GPT-4o Mini for fast reasoning/planning and Gemini 2.5 Flash for advanced synthesis
+-   **🎯 Intent Understanding**: Automatically analyzes queries to identify research objectives
+-   **📊 Task Decomposition**: Breaks complex queries into manageable subtasks
+-   **🔄 Dynamic Planning**: Creates optimized execution strategies based on query complexity
+
+### Safety & Quality
+
+-   **🛡️ Input Guardrails**: Validates queries for safety, scope, and appropriateness
+-   **✅ Pydantic Validation**: Runtime type checking ensures data integrity
+-   **🔎 Critic Agent**: Post-synthesis quality control validates accuracy and completeness
+-   **⚠️ Error Handling**: Graceful degradation with fallback mechanisms
+
+### Data Sources
+
+-   **📚 Academic Papers**: arXiv integration with smart query optimization
+-   **🌐 Web Search**: Tavily API for recent news and articles
+-   **📖 General Knowledge**: Wikipedia for background information
+-   **🔌 Extensible**: Easy integration of additional data sources
+
+### Developer Experience
+
+-   **📊 LangSmith Tracing**: Complete observability of agent interactions
+-   **⚡ UV Package Manager**: 10-100x faster dependency management
+-   **🧪 Comprehensive Tests**: Extensive test coverage for reliability
+-   **📝 Type Hints**: Full typing support for better IDE integration
+
+###   
+
+### 🏗️ Architecture
+
+  
+
+![Architecture](https://file%2B.vscode-resource.vscode-cdn.net/c%3A/Users/ARUN%20NIVAAS/.vscode/extensions/syncfusioninc.document-viewer-vscode-extensions-4.0.2/temp-images/img_7/architecture.png)
+
+###   
+
+### Key Components
+
+  
+
+1. **Guardrails**: Validates input queries for safety, relevance, and appropriate scope before processing
+
+2. **Reasoning Node (GPT-4o Mini)**: Analyzes user intent, identifies subtasks, and selects appropriate tools
+
+3. **Planning Node (GPT-4o Mini)**: Creates sequential execution plan with specific queries for each tool
+
+4. **Agent Executors**: Specialized agents for academic papers (arXiv), web search (Tavily), and general knowledge (Wikipedia)
+
+5. **Synthesis Node (Gemini 2.0 Flash)**: Aggregates and synthesizes findings into coherent, comprehensive responses with superior context understanding
+
+6. **Critic Agent**: Evaluates the synthesized output for quality, accuracy, completeness, and coherence before delivery
