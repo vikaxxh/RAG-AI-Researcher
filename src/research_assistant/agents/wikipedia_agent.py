@@ -4,6 +4,7 @@ import wikipedia #type: ignore
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from langsmith import traceable #type: ignore
+from src.research_assistant.config import settings
 
 class WikipediaAgent:
 
@@ -15,7 +16,7 @@ class WikipediaAgent:
     name="Wikipedia_agent",
     metadata={"method_type": "search_wikipedia", "version": "1.0"})
     
-    async def search_wikipedia(self, query: str, max_results: int = 3) -> List[Dict[str, Any]]:
+    async def search_wikipedia(self, query: str, max_results: int = settings.max_wikipedia_results) -> List[Dict[str, Any]]:
         def _fetch():
             search_titles = wikipedia.search(query, results=max_results) #type:ignore
 

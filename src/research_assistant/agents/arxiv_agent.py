@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 from langsmith import traceable  # type: ignore
 import time
 from src.research_assistant.core.logger import logger
+from src.research_assistant.config import settings
 
 
 class ArxivAgent:
@@ -21,7 +22,7 @@ class ArxivAgent:
         name="Arxiv_agent",
         metadata={"method_type": "search_papers", "version": "1.0"}
     )
-    async def search_papers(self, query: str, max_results: int = 5) -> List[Dict[str, Any]]:
+    async def search_papers(self, query: str, max_results: int = settings.max_arxiv_results) -> List[Dict[str, Any]]:
 
         def _search() -> List[Dict[str,Any]]:
             cleaned_query = self.clean_for_arxiv(query)
