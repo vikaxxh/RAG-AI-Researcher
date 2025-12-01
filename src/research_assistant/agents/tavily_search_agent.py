@@ -1,22 +1,22 @@
 from tavily import TavilyClient #type: ignore
 from typing import List, Dict, Any
-import os
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from langsmith import traceable #type: ignore
+from src.research_assistant.config import settings
 
 
 class TavilyAgent:
 
     def __init__(self):
-        self.client = TavilyClient(api_key = os.getenv("TAVILY_API_KEY"))
+        self.client = TavilyClient(api_key = settings.tavily_api_key)
         self._executor = ThreadPoolExecutor(max_workers = 4)
         
     @traceable(
     name="Tavily_agent",
     metadata={"method_type": "search_web", "version": "1.0"})
 
-    async def search_web(self, query: str, max_results: int = 5) -> List[Dict[str, Any]]:
+    async def search_web(self, query: str, max_results: int = settings.max_tavily_results) -> List[Dict[str, Any]]:
 
         def _search():
         
