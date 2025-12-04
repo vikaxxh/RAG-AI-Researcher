@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "arxiv>=2.3.1",
+    "better-profanity>=0.7.0",
     "colorlog>=6.10.1",
     "faiss-cpu>=1.13.0",
     "fastapi>=0.121.3",
@@ -22,6 +23,7 @@ dependencies = [
     "langchain-openai>=1.0.3",
     "langgraph>=1.0.3",
     "langsmith>=0.4.43",
+    "llm-guard>=0.3.15",
     "ollama>=0.6.1",
     "pydantic>=2.12.4",
     "python-dotenv>=1.2.1",

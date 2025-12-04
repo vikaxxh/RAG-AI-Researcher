@@ -5,6 +5,7 @@ from langsmith import traceable #type: ignore
 from langchain_ollama.llms import OllamaLLM
 from src.research_assistant.core.logger import logger
 from src.research_assistant.config import settings
+import os
 
 @traceable(name="Reasoning_LLM_init", metadata={"method_type": "local_ollama"})
 def get_common_llm_client():
@@ -37,8 +38,8 @@ def get_llm_client_rag():
     try:
 
         llm = ChatGoogleGenerativeAI(
-            model = settings.reasoning_model,
-            google_api_key = settings.google_api_key,
+            model = "gemini-2.5-flash",
+            google_api_key = os.getenv("GOOGLE_API_KEY"),
             safety_settings = {
         0: 2,  # DANGEROUS_CONTENT → medium block
         1: 2,  # HARASSMENT → medium block
@@ -62,7 +63,7 @@ def get_critic_llm_client():
     try:
         llm = ChatOpenAI(model=settings.critic_model, 
                 temperature = 0, 
-                api_key = SecretStr(settings.openai_api_key or ""),
+                # api_key = SecretStr(settings.openai_api_key or ""),
                 )
         
     except Exception as e:

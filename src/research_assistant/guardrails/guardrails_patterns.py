@@ -8,7 +8,8 @@ banned_keywords = [
             "suicide", "kill myself", "end my life", "self-harm",
             "cocaine", "heroin", "meth", "fentanyl",
             "terrorist", "terrorism", "attack", "assault",
-            "how to steal"
+            "how to steal""forget everything","ignore previous","system prompt","act as",
+            "pretend you are","break the rules","override","jailbreak"
         ]
         
         
@@ -34,5 +35,5 @@ injection_patterns = [
             r"<\|endoftext\|>",
             r"%%\s*instructions?",
             r"\[SYSTEM\]",
-            r"\[INST\]",
+            r"\[INST\]"
         ]
