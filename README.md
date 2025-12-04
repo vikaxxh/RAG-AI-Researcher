@@ -70,3 +70,7 @@ Built on **LangGraph's stateful workflow paradigm**, the system ensures:
 5. **Synthesis Node (Gemini 2.0 Flash)**: Aggregates and synthesizes findings into coherent, comprehensive responses with superior context understanding
 
 6. **Critic Agent**: Evaluates the synthesized output for quality, accuracy, completeness, and coherence before delivery
+
+## ⚖️ License
+
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
