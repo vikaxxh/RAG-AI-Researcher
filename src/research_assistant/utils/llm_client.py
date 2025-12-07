@@ -61,9 +61,9 @@ def get_llm_client_rag():
 def get_critic_llm_client():
 
     try:
-        llm = ChatOpenAI(model=settings.critic_model, 
+        llm = ChatOpenAI(model="gpt-4o-mini", 
                 temperature = 0, 
-                # api_key = SecretStr(settings.openai_api_key or ""),
+                api_key = SecretStr(os.getenv("OPENAI_API_KEY") or ""),
                 )
         
     except Exception as e:
