@@ -67,9 +67,124 @@ Built on **LangGraph's stateful workflow paradigm**, the system ensures:
 
 4. **Agent Executors**: Specialized agents for academic papers (arXiv), web search (Tavily), and general knowledge (Wikipedia)
 
-5. **Synthesis Node (Gemini 2.0 Flash)**: Aggregates and synthesizes findings into coherent, comprehensive responses with superior context understanding
+5. **Synthesis Node (Gemini 2.5 Flash)**: Aggregates and synthesizes findings into coherent, comprehensive responses with superior context understanding
 
 6. **Critic Agent**: Evaluates the synthesized output for quality, accuracy, completeness, and coherence before delivery
+
+## 🚀 Installation
+
+### Prerequisites
+
+**System Requirements:**
+- Python 3.11 or higher
+- 4GB RAM minimum (8GB recommended)
+- Internet connection for API calls
+
+**Required API Keys:**
+- [OpenAI API Key](https://platform.openai.com/api-keys) - For GPT-4o Mini (reasoning & planning)
+- [Google AI API Key](https://makersuite.google.com/app/apikey) - For Gemini 2.5 Flash (synthesis)
+- [Tavily API Key](https://tavily.com/) - For web search capabilities
+
+**Optional:**
+- [LangSmith API Key](https://smith.langchain.com/) - For tracing and observability (recommended for debugging)
+
+### Method 1: Using UV (Recommended - Fast!)
+
+UV is 10-100x faster than pip for dependency management.
+```bash
+# Install UV (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone https://github.com/arun-nivaas/agentic-rag-research.git
+cd agentic-rag-research
+
+# Create virtual environment and install dependencies
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -e .
+```
+
+---
+
+### Method 2: Using pip
+```bash
+# Clone the repository
+git clone https://github.com/arun-nivaas/agentic-rag-research.git
+cd agentic-rag-research
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -e .
+```
+
+---
+
+### Method 3: Using Docker
+```bash
+# Build the Docker image
+docker build -t agentic-rag-assistant .
+
+# Run the container
+docker run -p 8000:8000 \
+  -e OPENAI_API_KEY=your_openai_key \
+  -e GOOGLE_API_KEY=your_google_key \
+  -e TAVILY_API_KEY=your_tavily_key \
+  agentic-rag-assistant
+```
+
+---
+
+### Configuration
+
+1. **Create environment file:**
+```bash
+cp .env.example .env  # Or create new .env file
+```
+
+2. **Add your API keys to `.env`:**
+```env
+# Required
+OPENAI_API_KEY=sk-...
+GOOGLE_API_KEY=AI...
+TAVILY_API_KEY=tvly-...
+
+# Optional (for tracing)
+LANGSMITH_API_KEY=ls...
+LANGSMITH_PROJECT=agentic-rag-research
+LANGCHAIN_TRACING_V2=true
+```
+
+3. **Verify installation:**
+```bash
+python -c "import langgraph; print('✅ Installation successful!')"
+```
+
+---
+
+### Troubleshooting
+
+**Issue: `ModuleNotFoundError`**
+```bash
+# Make sure you're in the virtual environment
+source .venv/bin/activate
+pip install -e .
+```
+
+**Issue: API Key Errors**
+```bash
+# Check if .env file is loaded
+python -c "from dotenv import load_dotenv; import os; load_dotenv(); print(os.getenv('OPENAI_API_KEY'))"
+```
+
+**Issue: Permission Denied (UV installation)**
+```bash
+# Try adding UV to your PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+```
 
 ## ⚖️ License
 
