@@ -1,7 +1,7 @@
 from src.research_assistant.core.logger import logger
 from src.research_assistant.core.state_manager import ResearchState
 from langsmith import traceable #type: ignore
-from src.research_assistant.utils.llm_client import get_common_llm_client,get_critic_llm_client
+from src.research_assistant.utils.llm_client import get_critic_llm_client
 from src.research_assistant.prompt_library.reasoning_prompt import REASONING_PROMPT
 from src.research_assistant.schemas.reasoning_model import ReasoningOutput
 import json

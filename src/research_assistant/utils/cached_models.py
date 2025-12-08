@@ -1,6 +1,7 @@
 from functools import lru_cache
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
+from llm_guard.input_scanners import PromptInjection, Toxicity #type: ignore
 from pathlib import Path
 import os
 
@@ -20,9 +21,9 @@ def get_embedding_model():
     cache_dir.mkdir(parents=True, exist_ok=True)
     
     return HuggingFaceEmbeddings(
-        model_name="BAAI/bge-base-en-v1.5",
+        model_name="BAAI/bge-small-en-v1.5",
         cache_folder=str(cache_dir),
-        model_kwargs={'device': 'cpu'},
+        model_kwargs={'device': "cpu"},
         encode_kwargs={'normalize_embeddings': True}
     )
 
@@ -30,7 +31,17 @@ def get_embedding_model():
 def get_cross_encoder_model():
     print("🔵 Loading CrossEncoder model (cached)...")
     
-    # ✅ Uses environment variables for caching automatically
     return HuggingFaceCrossEncoder(
         model_name="cross-encoder/ms-marco-MiniLM-L-6-v2"
     )
+
+@lru_cache(maxsize=1)
+def get_prompt_injection_scanner():
+    """Cache PromptInjection scanner to avoid reloading the model."""
+    return PromptInjection(threshold=0.5, match_type="full")
+
+
+@lru_cache(maxsize=1)
+def get_toxicity_scanner():
+    """Cache Toxicity scanner to avoid reloading the model."""
+    return Toxicity(threshold=0.5, match_type="sentence")

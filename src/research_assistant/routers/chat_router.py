@@ -6,12 +6,13 @@ from langsmith import traceable #type: ignore
 from datetime import datetime
 from src.research_assistant.core.logger import logger
 from typing import Any
+from src.research_assistant.core.global_state import state
 
 
 
 router = APIRouter(tags=["Agentic Research Assistant"])
 
-guardrails_checker = Guardrails_check()
+guardrails_checker = state.guardrails_model
 
 @router.get("/health")
 async def health_check() -> dict[str,Any]:

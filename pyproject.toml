@@ -30,7 +30,7 @@ dependencies = [
     "rank-bm25>=0.2.2",
     "sentence-transformers>=5.1.2",
     "tavily-python>=0.7.13",
-    "transformers>=4.57.1",
+    "transformers==4.44.2",
     "uvicorn>=0.38.0",
     "wikipedia>=1.4.0",
     "wikipedia-api>=0.8.1",

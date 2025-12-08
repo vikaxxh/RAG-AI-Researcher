@@ -4,7 +4,6 @@ from pydantic import SecretStr
 from langsmith import traceable #type: ignore
 from langchain_ollama.llms import OllamaLLM
 from src.research_assistant.core.logger import logger
-from src.research_assistant.config import settings
 import os
 
 @traceable(name="Reasoning_LLM_init", metadata={"method_type": "local_ollama"})
