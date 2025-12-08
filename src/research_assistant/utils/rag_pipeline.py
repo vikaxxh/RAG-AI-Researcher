@@ -7,7 +7,7 @@ from langchain_community.retrievers import BM25Retriever
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document as LCDocument
 from langsmith import traceable #type: ignore
-from src.research_assistant.utils.cached_models import get_cross_encoder_model,get_embedding_model
+from src.research_assistant.core.global_state import state
 
 @traceable(name="PDFQA_init")
 class PDFQA:
@@ -15,8 +15,8 @@ class PDFQA:
         self.text = text
         self.vector_store = None
         self.retriever = None
-        self.embedding_model = get_embedding_model()
-        self.cross_encoder_model = get_cross_encoder_model()
+        self.embedding_model = state.embedding_model
+        self.cross_encoder_model = state.cross_encoder_model
         self._process_pdf()
 
     @traceable(name="PDFQA_rag_text_split")
@@ -26,7 +26,7 @@ class PDFQA:
         try:
             # SemanticChunker: captures high-level semantic splits
             semantic_splitter = SemanticChunker(
-                embeddings=self.embedding_model,
+                embeddings = self.embedding_model,
                 buffer_size=2,  #Previous : 4
                 add_start_index=False,
                 breakpoint_threshold_type="percentile",
