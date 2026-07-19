@@ -226,4 +226,3 @@ Special thanks to the open-source communities behind:
 
 **Built with ❤️ by Vikash**
 
-*Last Updated: 2026-07-17*
